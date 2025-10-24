@@ -1,0 +1,447 @@
+/** Variables, Initializations and Resetting Styles **/
+
+:root {
+	--primary-dark: #1e293b; /* slate-800 */
+	--secondary-dark: #334155; /* slate-700 - Fondo de tarjetas */
+	--tertiary-dark: #475569; /* slate-600 - Fondo de pestañas inactivas */
+	--accent-red: #ef4444; /* red-500 - Énfasis principal */
+	--soft-white: #f8fafc; /* slate-50 */
+	--green-active: #16a34a; /* green-600 */
+	--slate-btn: #64748b; /* slate-500 */
+	--temp-life-blue: #60a5fa; /* blue-400 */
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html {
+	font-size: 62.5%;
+}
+
+/* Fuente Inter para una apariencia moderna */
+@import url('https://fonts.fonts.google.com/specimen/Inter:wght@400;600;700&display=swap');
+
+body {
+	background-color: var(--primary-dark);
+	color: var(--soft-white);
+	min-height: 100vh;
+	padding: 1rem;
+	font-family: 'Inter', sans-serif;
+	display: flex;
+	flex-direction: column;
+}
+
+/* Clases de layout */
+.max-w-4xl { max-width: 56rem; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+.mb-8 { margin-bottom: 2rem; }
+.grid { display: grid; }
+.gap-6 { gap: 1.5rem; }
+.flex { display: flex; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+
+/* Estilo del Encabezado */
+header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+header h1 {
+	font-size: 1.875rem; /* 3xl */
+	font-weight: 700; /* bold */
+	color: var(--accent-red);
+}
+
+/* --- ESTILOS DE PESTAÑAS (TABS - Estilo Navegador) --- */
+#tabControls {
+	display: flex;
+	align-items: flex-end; /* Alinea los botones de la barra de vida y el botón de añadir barra */
+	width: 100%;
+	max-width: 56rem;
+	margin-left: auto;
+	margin-right: auto;
+	border-bottom: 2px solid var(--secondary-dark); /* Línea divisoria */
+}
+
+#tabsWrapper {
+	display: flex;
+	flex-grow: 1;
+	overflow-x: auto;
+	/* Ocultar barra de desplazamiento */
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+#tabsWrapper::-webkit-scrollbar {
+	display: none;
+}
+
+#tabsContainer {
+	display: flex;
+	gap: 2px; /* Pequeño espacio entre pestañas */
+	padding-top: 0.5rem;
+	padding-bottom: 0;
+}
+
+.tab-button {
+	display: flex;
+	align-items: center;
+	gap: 0.4rem;
+	padding: 0.5rem 0.75rem;
+	border-radius: 0.5rem 0.5rem 0 0; /* Esquinas superiores redondeadas */
+	font-size: 0.875rem;
+	font-weight: 600;
+	background-color: var(--tertiary-dark);
+	color: var(--slate-btn);
+	border: 1px solid var(--secondary-dark);
+	border-bottom: none; 
+	cursor: pointer;
+	transition: all 200ms ease;
+	white-space: nowrap;
+	position: relative;
+	max-width: 150px;
+}
+.tab-button:hover {
+	color: var(--soft-white);
+	background-color: #55667b; /* lighter slate */
+}
+.tab-button.active {
+	background-color: var(--secondary-dark); /* Fondo de la pestaña activa igual al fondo de la tarjeta */
+	color: var(--accent-red);
+	border-color: var(--secondary-dark); 
+	border-bottom: 1px solid var(--secondary-dark); /* Oculta la línea divisoria */
+	z-index: 10;
+	max-width: fit-content;
+}
+.tab-button.active:hover {
+		background-color: var(--secondary-dark);
+}
+
+/* Estilo para el input de edición de nombre de pestaña */
+.tab-name-edit-input {
+	font-size: 0.875rem;
+	font-weight: 600;
+	background-color: transparent;
+	color: inherit;
+	border: 1px solid var(--accent-red);
+	border-radius: 3px;
+	padding: 0 0.25rem;
+	max-width: 100px;
+	box-shadow: 0 0 5px rgba(239, 68, 68, 0.5); /* glow effect */
+	outline: none;
+	line-height: 1.5;
+	z-index: 20; /* Asegura que esté por encima de la pestaña */
+}
+
+.tab-delete-btn {
+	background: none;
+	border: none;
+	color: inherit;
+	font-size: 0.8rem;
+	cursor: pointer;
+	padding: 0;
+	line-height: 1;
+	transition: color 200ms;
+	margin-left: 0.25rem;
+	opacity: 0.7;
+}
+.tab-delete-btn:hover {
+	opacity: 1;
+	color: var(--soft-white);
+}
+/* Botón de Añadir Pestaña (solo +) */
+#addTabBtn {
+	font-size: 1.5rem;
+	padding: 0 0.5rem;
+	margin-left: 0.5rem;
+	height: 36px; /* Ajuste para que coincida con la altura de la pestaña */
+	background-color: var(--tertiary-dark);
+	border-radius: 0.5rem;
+	color: var(--slate-btn);
+	border: 1px solid var(--secondary-dark);
+	transition: all 200ms ease;
+}
+#addTabBtn:hover {
+	background-color: #55667b;
+	color: var(--soft-white);
+}
+/* Botón Añadir Barra de Vida */
+#addLifeBarBtn {
+	margin-left: auto; /* Empuja el botón a la derecha */
+	margin-bottom: 0.5rem;
+	padding: 0.6rem 1rem;
+}
+
+/* Contenido de la Aplicación bajo las Pestañas */
+main {
+	padding-top: 1.5rem; /* Separación del área de pestañas */
+}
+
+/* Estilo base para los botones de control (resto de estilos de botones no cambian) */
+.button {
+	padding: 0.5rem 1rem;
+	font-size: 0.75rem;
+	font-weight: 600;
+	border-radius: 0.5rem;
+	transition: all 200ms ease;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+	color: white;
+	border: none;
+	cursor: pointer;
+}
+.button-primary {
+	background-color: var(--green-active);
+}
+.button-primary:hover {
+	background-color: #15803d;
+	transform: scale(1.05);
+}
+.button-delete {
+	background-color: var(--secondary-dark);
+	color: var(--accent-red);
+	border: 1px solid var(--accent-red);
+	opacity: 0.7;
+	position: absolute;
+	top: -10px;
+	right: -10px;
+	font-size: 10px;
+	padding: 5px;
+}
+.button-delete:hover {
+	opacity: 1;
+	background-color: var(--primary-dark);
+}
+.button-secondary {
+	background-color: var(--slate-btn);
+}
+.button-secondary:hover {
+	background-color: #475569;
+}
+.button-submit {
+	background-color: var(--accent-red);
+}
+.button-submit:hover {
+	background-color: #dc2626;
+}
+
+/* Estilos de la Tarjeta de Barra de Vida (no cambian) */
+.life-bar-card {
+	padding: 1rem;
+	background-color: var(--secondary-dark);
+	border-radius: 0.75rem;
+	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+	border: 1px solid #374151;
+	transition: border 300ms ease;
+	cursor: grab;
+
+	display: grid;
+	grid-template-columns: 80px 1fr 1fr;
+	grid-template-rows: 1fr;
+	grid-column-gap: 1rem;
+	
+	position: relative;
+}
+/* ... (resto de estilos de tarjeta, vida, modales y media queries se mantienen) ... */
+.profile-image-container {
+	width: 80px;
+	height: 100%;
+	flex-shrink: 0;
+	cursor: pointer;
+	border-radius: 0.5rem;
+	overflow: hidden;
+	background-color: var(--primary-dark);
+	border: 3px solid #374151;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: all 200ms ease;
+
+	grid-area: 1 / 1 / 2 / 2
+}
+.profile-image-container:hover {
+	border-color: var(--accent-red);
+}
+.placeholder-emoji {
+	font-size: 3rem;
+	line-height: 1;
+	color: #64748b;
+}
+.w-full { width: 100%; }
+.h-full { height: 100%; }
+.object-cover { object-fit: cover; }
+.life-bar-card-content {
+	align-items: stretch;
+	gap: 1rem;
+	margin-bottom: 0.5rem;
+
+	grid-area: 1 / 2 / 2 / 4;
+}
+.life-bar-card:hover {
+	border-color: var(--accent-red);
+}
+.life-bar-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 0;
+}
+.life-bar-name {
+	font-size: 1.25rem;
+	font-weight: 700;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	cursor: pointer;
+}
+.life-bar-stats {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+}
+.life-bar-text {
+	font-size: 1.125rem;
+	font-weight: 600;
+	font-family: monospace;
+	display: flex;
+	align-items: center;
+	gap: 0.25rem;
+}
+.life-editable-value:hover {
+	text-decoration: underline;
+	text-decoration-thickness: 2px;
+	opacity: 0.9;
+}
+.life-bar-container {
+	height: 24px;
+	overflow: hidden;
+	border-radius: 8px;
+	box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+	background-color: rgba(127, 29, 29, 0.5);
+	position: relative;
+	cursor: pointer;
+
+	grid-area: 2 / 2 / 3 / 3;
+}
+.life-fill, .temp-life-fill {
+	transition: width 0.5s ease-in-out, background-color 0.5s ease-in-out, border-radius 0.2s;
+	height: 100%;
+	position: absolute;
+	top: 0;
+}
+
+.temp-life-fill {
+	background-color: var(--temp-life-blue);
+}
+.name-edit-input {
+	font-size: 1.25rem;
+	font-weight: 700;
+	background-color: var(--primary-dark);
+	color: var(--soft-white);
+	border: none;
+	border-bottom: 2px solid var(--accent-red);
+	outline: none;
+	width: 100%;
+	padding: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	line-height: 1.5;
+}
+.modal {
+	position: fixed;
+	inset: 0;
+	display: none;
+	align-items: center;
+	justify-content: center;
+	z-index: 50;
+	background-color: rgba(0, 0, 0, 0.7);
+}
+.modal.is-visible {
+	display: flex;
+}
+.modal-content {
+	background-color: var(--secondary-dark);
+	padding: 2rem;
+	border-radius: 1rem;
+	box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+	width: 90%;
+	max-width: 28rem;
+	transform: scale(0.95);
+	opacity: 0;
+	transition: all 300ms ease;
+}
+#editModalContent {
+	max-width: 20rem;
+}
+#confirmDeleteTabModalContent { /* Estilo específico para la confirmación de pestaña */
+	max-width: 26rem;
+}
+#cropModalContent {
+		max-width: 600px;
+		height: 80vh;
+		max-height: 600px;
+		padding: 1rem;
+		display: flex;
+		flex-direction: column;
+}
+.modal-content.is-visible {
+	transform: scale(1);
+	opacity: 1;
+}
+.input-field {
+	width: 100%;
+	padding: 0.5rem 1rem;
+	border-radius: 0.5rem;
+	background-color: var(--primary-dark);
+	border: 1px solid #4b5563;
+	color: var(--soft-white);
+	font-weight: 400;
+	box-sizing: border-box;
+}
+.input-field-edit {
+	font-size: 1.5rem;
+	text-align: center;
+	font-weight: 700;
+	padding: 0.75rem 1rem;
+	color: var(--accent-red);
+	background-color: var(--primary-dark);
+	border: 1px solid #4b5563;
+	border-radius: 0.5rem;
+	width: 100%;
+	box-sizing: border-box;
+}
+#emptyState {
+	text-align: center;
+	font-size: 1.125rem;
+	font-style: italic;
+	color: #64748b;
+	padding: 2.5rem;
+	border-radius: 0.75rem;
+	border: 1px dashed #374151;
+	display: none;
+}
+#cropContainer {
+	flex-grow: 1;
+	margin-bottom: 1rem;
+	background-color: #374151;
+	overflow: hidden;
+	position: relative;
+}
+#cropImage {
+	display: block;
+	max-width: 100%;
+}
+.crop-actions {
+	display: flex;
+	justify-content: space-between;
+	gap: 0.5rem;
+}
+@media (min-width: 768px) {
+	body { padding: 2rem; }
+	header h1 { font-size: 2.25rem; }
+	.life-bar-card {
+		padding: 1.5rem;
+	}
+}

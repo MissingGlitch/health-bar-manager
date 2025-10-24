@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<title>Gestor de Barras de Vida</title>
+	<link rel="icon" href="https://cdn-icons-png.flaticon.com/512/5559/5559844.png" type="image/png"/>
+	<!-- Cropper.js (CSS) -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css"/>
+	<link rel="stylesheet" type="text/css" href="style.css"/>
+</head>
+<body class="bg-primary-dark text-soft-white min-h-screen p-4 md:p-8">
+
+    <!-- Encabezado -->
+    <header class="max-w-4xl mx-auto mb-4">
+        <h1 style="padding-bottom: 40px; margin: 0">❣️ Gestor de Barras de Vida ❣️</h1>
+    </header>
+
+    <!-- Controles de Pestaña y Botones -->
+    <div id="tabControls">
+        <div id="tabsWrapper">
+            <!-- Pestañas -->
+            <div id="tabsContainer">
+                <!-- Los botones de pestaña se renderizan aquí -->
+            </div>
+            <!-- Botón de Añadir Pestaña (Estilo +) -->
+            <button id="addTabBtn" class="button" title="Crear nueva pestaña">
+                +
+            </button>
+        </div>
+
+        <!-- Botón de Añadir Barra de Vida -->
+        <button id="addLifeBarBtn" class="button button-primary">
+            + Añadir Barra
+        </button>
+    </div>
+
+    <!-- Contenido Principal -->
+    <main class="max-w-4xl mx-auto" style="width: 100%; flex-grow: 1;">
+        <!-- Contenedor donde se mostrarán las barras de vida -->
+        <div id="lifeBarsContainer" class="grid gap-6">
+            <p id="emptyState">
+                No hay barras de vida activas en esta pestaña. ¡Pulsa "Añadir Barra" para empezar!
+            </p>
+        </div>
+    </main>
+
+    <!-- Modal para Añadir BARRA de Vida (Oculto por defecto) -->
+    <div id="addBarModal" class="modal">
+        <div class="modal-content" id="modalContent">
+            <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: var(--accent-red);">Crear Nueva Barra de Vida</h2>
+            <form id="addBarForm" style="display: flex; flex-direction: column; gap: 1rem;">
+                <div>
+                    <label for="barName" style="display: block; font-size: 0.875rem; font-weight: 500; margin-bottom: 0.25rem;">Nombre de la Barra:</label>
+                    <input type="text" id="barName" required placeholder="Ej: Jefe Final, Jugador 1"
+                           class="input-field" />
+                </div>
+                <div>
+                    <label for="maxLife" style="display: block; font-size: 0.875rem; font-weight: 500; margin-bottom: 0.25rem;">Vida Máxima:</label>
+                    <input type="number" id="maxLife" required min="1" value="100"
+                           class="input-field" />
+                </div>
+                <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem;">
+                    <button type="button" id="closeAddModalBtn" class="button button-secondary">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="button button-submit">
+                        Crear Barra
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para Añadir PESTAÑA (No usado por el botón '+', pero se mantiene) -->
+    <div id="addTabModal" class="modal">
+        <div class="modal-content" id="addTabModalContent">
+            <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: var(--accent-red);">Crear Nueva Pestaña</h2>
+            <form id="addTabForm" style="display: flex; flex-direction: column; gap: 1rem;">
+                <div>
+                    <label for="tabName" style="display: block; font-size: 0.875rem; font-weight: 500; margin-bottom: 0.25rem;">Nombre de la Pestaña:</label>
+                    <input type="text" id="tabName" required placeholder="Ej: Combate 1, PJ's, Monstruos"
+                           class="input-field" />
+                </div>
+                <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem;">
+                    <button type="button" id="closeAddTabModalBtn" class="button button-secondary">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="button button-submit">
+                        Crear Pestaña
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para Editar Vida ACTUAL (Oculto por defecto) -->
+    <div id="editLifeModal" class="modal">
+        <div class="modal-content" id="editModalContent">
+            <!-- Título actualizado dinámicamente -->
+            <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem;">Modificar Vida Actual de:</h2>
+            <p id="editBarName" style="font-size: 1.5rem; font-weight: 700; color: var(--accent-red); margin-bottom: 1rem; font-family: monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">[Nombre]</p>
+
+            <form id="editLifeForm" style="display: flex; flex-direction: column; gap: 1rem;">
+                <input type="text" id="lifeChangeInput" placeholder="+10, -5, 80"
+                       class="input-field-edit" maxlength="6" autocomplete="off" />
+
+                <!-- Casilla de Vida Temporal -->
+                <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem;">
+                    <input type="checkbox" id="isTempLife" style="width: 1.2rem; height: 1.2rem; cursor: pointer; accent-color: var(--temp-life-blue);" />
+                    <label for="isTempLife" style="font-size: 0.875rem; color: var(--temp-life-blue); font-weight: 500;">Aplicar como Vida Temporal</label>
+                </div>
+                <!-- FIN Casilla de Vida Temporal -->
+
+                <div style="display: flex; justify-content: space-between; gap: 0.75rem; margin-top: 1.5rem;">
+                    <button type="button" id="closeEditModalBtn" class="button button-secondary" style="width: 50%;">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="button button-primary" style="width: 50%;">
+                        Aplicar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para Confirmar Eliminación de Pestaña (NUEVO) -->
+    <div id="confirmDeleteTabModal" class="modal">
+        <div class="modal-content" id="confirmDeleteTabModalContent">
+            <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--accent-red);">Confirmar Cierre de Pestaña</h2>
+            <p id="confirmDeleteTabText" style="margin-bottom: 1.5rem; font-size: 1rem;">
+                La pestaña "<strong id="tabNameToDelete"></strong>" contiene datos activos. ¿Estás seguro de que quieres cerrarla?
+            </p>
+            <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
+                <button type="button" id="cancelDeleteTabBtn" class="button button-secondary">
+                    Cancelar
+                </button>
+                <button type="button" id="confirmDeleteTabBtn" class="button button-submit">
+                    Cerrar Pestaña y Eliminar Datos
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Recorte de Imagen -->
+    <div id="cropModal" class="modal">
+        <div class="modal-content" id="cropModalContent">
+            <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem; color: var(--accent-red);">Ajustar Imagen de Perfil</h2>
+
+            <!-- Contenedor donde Cropper.js dibujará la imagen -->
+            <div id="cropContainer">
+                <img id="cropImage" alt="Imagen para recortar">
+            </div>
+
+            <!-- Controles de Cropper.js -->
+            <div class="crop-actions">
+                <div style="display: flex; gap: 0.5rem;">
+                    <!-- Botones de Rotación y Zoom -->
+                    <button type="button" id="rotateLeftBtn" class="button button-secondary" title="Rotar 90° Izquierda">
+                        ⟲
+                    </button>
+                    <button type="button" id="rotateRightBtn" class="button button-secondary" title="Rotar 90° Derecha">
+                        ⟳
+                    </button>
+                    <button type="button" id="zoomInBtn" class="button button-secondary" title="Zoom In">
+                        +
+                    </button>
+                    <button type="button" id="zoomOutBtn" class="button button-secondary" title="Zoom Out">
+                        -
+                    </button>
+                </div>
+
+                <div style="display: flex; gap: 0.5rem;">
+                    <button type="button" id="cancelCropBtn" class="button button-secondary">
+                        Cancelar
+                    </button>
+                    <button type="button" id="confirmCropBtn" class="button button-primary">
+                        Aplicar Recorte
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cropper.js (JavaScript) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
+	<script type="text/javascript" src="script.js"></script>
+</body>
+</html>
