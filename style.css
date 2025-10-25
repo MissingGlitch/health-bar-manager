@@ -28,18 +28,18 @@ body {
 	background-color: var(--primary-dark);
 	color: var(--soft-white);
 	min-height: 100vh;
-	padding: 1rem;
+	padding: 1.6rem;
 	font-family: 'Inter', sans-serif;
 	display: flex;
 	flex-direction: column;
 }
 
 /* Clases de layout */
-.max-w-4xl { max-width: 56rem; }
+.max-w-4xl { max-width: 89.6rem; }
 .mx-auto { margin-left: auto; margin-right: auto; }
-.mb-8 { margin-bottom: 2rem; }
+.mb-8 { margin-bottom: 3.2rem; }
 .grid { display: grid; }
-.gap-6 { gap: 1.5rem; }
+.gap-6 { gap: 2.4rem; }
 .flex { display: flex; }
 .items-center { align-items: center; }
 .justify-between { justify-content: space-between; }
@@ -51,7 +51,7 @@ header {
 	align-items: center;
 }
 header h1 {
-	font-size: 1.875rem; /* 3xl */
+	font-size: 3rem; /* 3xl */
 	font-weight: 700; /* bold */
 	color: var(--accent-red);
 }
@@ -61,7 +61,7 @@ header h1 {
 	display: flex;
 	align-items: flex-end; /* Alinea los botones de la barra de vida y el botón de añadir barra */
 	width: 100%;
-	max-width: 56rem;
+	max-width: 89.6rem;
 	margin-left: auto;
 	margin-right: auto;
 	border-bottom: 2px solid var(--secondary-dark); /* Línea divisoria */
@@ -82,17 +82,17 @@ header h1 {
 #tabsContainer {
 	display: flex;
 	gap: 2px; /* Pequeño espacio entre pestañas */
-	padding-top: 0.5rem;
+	padding-top: 0.8rem;
 	padding-bottom: 0;
 }
 
 .tab-button {
 	display: flex;
 	align-items: center;
-	gap: 0.4rem;
-	padding: 0.5rem 0.75rem;
-	border-radius: 0.5rem 0.5rem 0 0; /* Esquinas superiores redondeadas */
-	font-size: 0.875rem;
+	gap: 0.64rem;
+	padding: 0.8rem 1.2rem;
+	border-radius: 0.8rem 0.8rem 0 0; /* Esquinas superiores redondeadas */
+	font-size: 1.4rem;
 	font-weight: 600;
 	background-color: var(--tertiary-dark);
 	color: var(--slate-btn);
@@ -122,13 +122,13 @@ header h1 {
 
 /* Estilo para el input de edición de nombre de pestaña */
 .tab-name-edit-input {
-	font-size: 0.875rem;
+	font-size: 1.4rem;
 	font-weight: 600;
 	background-color: transparent;
 	color: inherit;
 	border: 1px solid var(--accent-red);
 	border-radius: 3px;
-	padding: 0 0.25rem;
+	padding: 0 0.4rem;
 	max-width: 100px;
 	box-shadow: 0 0 5px rgba(239, 68, 68, 0.5); /* glow effect */
 	outline: none;
@@ -140,12 +140,12 @@ header h1 {
 	background: none;
 	border: none;
 	color: inherit;
-	font-size: 0.8rem;
+	font-size: 1.28rem;
 	cursor: pointer;
 	padding: 0;
 	line-height: 1;
 	transition: color 200ms;
-	margin-left: 0.25rem;
+	margin-left: 0.4rem;
 	opacity: 0.7;
 }
 .tab-delete-btn:hover {
@@ -154,12 +154,12 @@ header h1 {
 }
 /* Botón de Añadir Pestaña (solo +) */
 #addTabBtn {
-	font-size: 1.5rem;
-	padding: 0 0.5rem;
-	margin-left: 0.5rem;
+	font-size: 2.4rem;
+	padding: 0 0.8rem;
+	margin-left: 0.8rem;
 	height: 36px; /* Ajuste para que coincida con la altura de la pestaña */
 	background-color: var(--tertiary-dark);
-	border-radius: 0.5rem;
+	border-radius: 0.8rem;
 	color: var(--slate-btn);
 	border: 1px solid var(--secondary-dark);
 	transition: all 200ms ease;
@@ -171,21 +171,21 @@ header h1 {
 /* Botón Añadir Barra de Vida */
 #addLifeBarBtn {
 	margin-left: auto; /* Empuja el botón a la derecha */
-	margin-bottom: 0.5rem;
-	padding: 0.6rem 1rem;
+	margin-bottom: 0.8rem;
+	padding: 0.96rem 1.6rem;
 }
 
 /* Contenido de la Aplicación bajo las Pestañas */
 main {
-	padding-top: 1.5rem; /* Separación del área de pestañas */
+	padding-top: 2.4rem; /* Separación del área de pestañas */
 }
 
 /* Estilo base para los botones de control (resto de estilos de botones no cambian) */
 .button {
-	padding: 0.5rem 1rem;
-	font-size: 0.75rem;
+	padding: 0.8rem 1.6rem;
+	font-size: 1.2rem;
 	font-weight: 600;
-	border-radius: 0.5rem;
+	border-radius: 0.8rem;
 	transition: all 200ms ease;
 	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
 	color: white;
@@ -229,28 +229,28 @@ main {
 
 /* Estilos de la Tarjeta de Barra de Vida (no cambian) */
 .life-bar-card {
-	padding: 1rem;
+	padding: 1.6rem;
 	background-color: var(--secondary-dark);
-	border-radius: 0.75rem;
+	border-radius: 1.2rem;
 	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
 	border: 1px solid #374151;
 	transition: border 300ms ease;
 	cursor: grab;
 
 	display: grid;
-	grid-template-columns: 80px 1fr 1fr;
+	grid-template-columns: 120px 1fr 1fr;
 	grid-template-rows: 1fr;
-	grid-column-gap: 1rem;
+	grid-column-gap: 1.6rem;
 	
 	position: relative;
 }
 /* ... (resto de estilos de tarjeta, vida, modales y media queries se mantienen) ... */
 .profile-image-container {
-	width: 80px;
+	width: 120px;
 	height: 100%;
 	flex-shrink: 0;
 	cursor: pointer;
-	border-radius: 0.5rem;
+	border-radius: 0.8rem;
 	overflow: hidden;
 	background-color: var(--primary-dark);
 	border: 3px solid #374151;
@@ -265,7 +265,7 @@ main {
 	border-color: var(--accent-red);
 }
 .placeholder-emoji {
-	font-size: 3rem;
+	font-size: 4.8rem;
 	line-height: 1;
 	color: #64748b;
 }
@@ -273,11 +273,11 @@ main {
 .h-full { height: 100%; }
 .object-cover { object-fit: cover; }
 .life-bar-card-content {
-	align-items: stretch;
-	gap: 1rem;
-	margin-bottom: 0.5rem;
-
+  display: flex;
+  flex-direction: column;
+	margin-bottom: 0.8rem;
 	grid-area: 1 / 2 / 2 / 4;
+  justify-content: space-around;
 }
 .life-bar-card:hover {
 	border-color: var(--accent-red);
@@ -289,7 +289,7 @@ main {
 	margin-bottom: 0;
 }
 .life-bar-name {
-	font-size: 1.25rem;
+	font-size: 2rem;
 	font-weight: 700;
 	white-space: nowrap;
 	overflow: hidden;
@@ -299,15 +299,15 @@ main {
 .life-bar-stats {
 	display: flex;
 	align-items: center;
-	gap: 0.75rem;
+	gap: 1.2rem;
 }
 .life-bar-text {
-	font-size: 1.125rem;
+	font-size: 1.8rem;
 	font-weight: 600;
 	font-family: monospace;
 	display: flex;
 	align-items: center;
-	gap: 0.25rem;
+	gap: 0.4rem;
 }
 .life-editable-value:hover {
 	text-decoration: underline;
@@ -336,7 +336,7 @@ main {
 	background-color: var(--temp-life-blue);
 }
 .name-edit-input {
-	font-size: 1.25rem;
+	font-size: 2rem;
 	font-weight: 700;
 	background-color: var(--primary-dark);
 	color: var(--soft-white);
@@ -363,26 +363,26 @@ main {
 }
 .modal-content {
 	background-color: var(--secondary-dark);
-	padding: 2rem;
-	border-radius: 1rem;
+	padding: 3.2rem;
+	border-radius: 1.6rem;
 	box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 	width: 90%;
-	max-width: 28rem;
+	max-width: 44.8rem;
 	transform: scale(0.95);
 	opacity: 0;
 	transition: all 300ms ease;
 }
 #editModalContent {
-	max-width: 20rem;
+	max-width: 32rem;
 }
 #confirmDeleteTabModalContent { /* Estilo específico para la confirmación de pestaña */
-	max-width: 26rem;
+	max-width: 41.6rem;
 }
 #cropModalContent {
 		max-width: 600px;
 		height: 80vh;
 		max-height: 600px;
-		padding: 1rem;
+		padding: 1.6rem;
 		display: flex;
 		flex-direction: column;
 }
@@ -392,8 +392,8 @@ main {
 }
 .input-field {
 	width: 100%;
-	padding: 0.5rem 1rem;
-	border-radius: 0.5rem;
+	padding: 0.8rem 1.6rem;
+	border-radius: 0.8rem;
 	background-color: var(--primary-dark);
 	border: 1px solid #4b5563;
 	color: var(--soft-white);
@@ -401,30 +401,30 @@ main {
 	box-sizing: border-box;
 }
 .input-field-edit {
-	font-size: 1.5rem;
+	font-size: 2.4rem;
 	text-align: center;
 	font-weight: 700;
-	padding: 0.75rem 1rem;
+	padding: 1.2rem 1.6rem;
 	color: var(--accent-red);
 	background-color: var(--primary-dark);
 	border: 1px solid #4b5563;
-	border-radius: 0.5rem;
+	border-radius: 0.8rem;
 	width: 100%;
 	box-sizing: border-box;
 }
 #emptyState {
 	text-align: center;
-	font-size: 1.125rem;
+	font-size: 1.8rem;
 	font-style: italic;
 	color: #64748b;
-	padding: 2.5rem;
-	border-radius: 0.75rem;
+	padding: 4rem;
+	border-radius: 1.2rem;
 	border: 1px dashed #374151;
 	display: none;
 }
 #cropContainer {
 	flex-grow: 1;
-	margin-bottom: 1rem;
+	margin-bottom: 1.6rem;
 	background-color: #374151;
 	overflow: hidden;
 	position: relative;
@@ -436,12 +436,12 @@ main {
 .crop-actions {
 	display: flex;
 	justify-content: space-between;
-	gap: 0.5rem;
+	gap: 0.8rem;
 }
 @media (min-width: 768px) {
-	body { padding: 2rem; }
-	header h1 { font-size: 2.25rem; }
+	body { padding: 3.2rem; }
+	header h1 { font-size: 3.6rem; }
 	.life-bar-card {
-		padding: 1.5rem;
+		padding: 2.4rem;
 	}
 }

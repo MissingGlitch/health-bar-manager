@@ -1074,9 +1074,6 @@ function createNewBarElement(bar) {
 	card.appendChild(fileInput);
 
 	// 2. Contenedor de Texto y Stats
-	const textContentWrapper = document.createElement('div');
-	textContentWrapper.style.flexGrow = 1;
-
 	const header = document.createElement('div');
 	header.className = 'life-bar-header';
 
@@ -1100,11 +1097,10 @@ function createNewBarElement(bar) {
 	statsContainer.appendChild(lifeText);
 	header.appendChild(nameElement);
 	header.appendChild(statsContainer);
-	textContentWrapper.appendChild(header);
 
 	// Armar el contentWrapper (Imagen + Texto/Header)
 	// contentWrapper.appendChild(imageContainer);
-	contentWrapper.appendChild(textContentWrapper);
+	contentWrapper.appendChild(header);
 
 	// Contenedor de la barra de vida visual
 	const lifeBarContainer = document.createElement('div');
